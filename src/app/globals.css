@@ -17,8 +17,6 @@ body {
       rgb(var(--background-start-rgb))) rgb(var(--background-end-rgb)) */
 }
 
-
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
