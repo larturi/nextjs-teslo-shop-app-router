@@ -2,12 +2,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { titleFont } from '@/config/fonts'
 
-export function PageNotFound() {
+interface Props {
+  message?: string
+}
+
+export function PageNotFound({ message = 'Whoops! Lo sentimos mucho.' }: Props) {
   return (
     <div className='flex flex-col-reverse md:flex-row h-[800px] mt-20 w-full justify-center items-center align-middle'>
       <div className='text-center px-5 mx-5'>
         <h2 className={`${titleFont.className} antialiased text-9xl`}>404</h2>
-        <p className='font-semibold text-xl'>Whoops! Lo sentimos mucho.</p>
+        <p className='font-semibold text-xl'>{message}</p>
         <p className='font-light'>
           <span>Puedes regresar al </span>
           <Link href='/' className='font-normal hover:underline transition-all'>
