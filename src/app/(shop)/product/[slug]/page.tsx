@@ -1,4 +1,4 @@
-import { SizeSelector, QuantitySelector } from '@/components'
+import { SizeSelector, QuantitySelector, ProductSlideshow } from '@/components'
 import { titleFont } from '@/config/fonts'
 import { initialData } from '@/seed/seed'
 import { notFound } from 'next/navigation'
@@ -16,13 +16,17 @@ export default function ProductPage({ params }: Props) {
   if (!product) return notFound()
 
   return (
-    <div className='mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3'>
+    <div className='mt-5 mb-20 grid grid-cols-1 md:grid-cols-6 gap-3'>
       {/* Slideshow */}
-      <div className='col-span-1 md:col-span-2 '>Hola</div>
+      <div className='col-span-1 md:col-span-3'>
+        <ProductSlideshow images={product.images} title={product.title} />
+      </div>
 
       {/* Details */}
-      <div className='col-span-1 px-3 '>
-        <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
+      <div className='col-span-2 px-3 '>
+        <h1 className={`${titleFont.className} antialiased font-bold text-4xl mb-7`}>
+          {product.title}
+        </h1>
         <p className='text-lg mb-5'>${product.price}</p>
 
         <SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
