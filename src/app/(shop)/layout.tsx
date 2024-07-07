@@ -10,7 +10,7 @@ export default function ShopLayout({
     <main className='min-h-screen'>
       <TopMenu />
       <Sidebar />
-      <div className='px-0 sm:px-8'>{children}</div>
+      <div className='px-0 md:px-8'>{children}</div>
     </main>
   )
 }

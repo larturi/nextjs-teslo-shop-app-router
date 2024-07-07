@@ -17,9 +17,7 @@ export function QuantitySelector({ quantity }: Props) {
   }
 
   return (
-    <div className='my-5'>
-      <h3 className='font-bold mb-4'>Quantity Selector</h3>
-
+    <div className='my-3'>
       <div className='flex'>
         <button className='mr-3 hover:underline text-lg' onClick={() => onQuantityChange(-1)}>
           <IoRemoveCircleOutline size={30} />
