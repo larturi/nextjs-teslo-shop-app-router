@@ -21,7 +21,7 @@ interface Props {
   className?: string
 }
 
-export function ProductSlideshow({ images, title, className }: Props) {
+export default function ProductSlideshow({ images, title, className }: Props) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperObject>()
 
   return (

@@ -6,7 +6,7 @@ interface Props {
   availableSizes: Size[]
 }
 
-export function SizeSelector({ selectedSize, availableSizes }: Props) {
+export default function SizeSelector({ selectedSize, availableSizes }: Props) {
   return (
     <div className='my-5'>
       <h3 className='font-bold mb-4'>Available Sizes</h3>

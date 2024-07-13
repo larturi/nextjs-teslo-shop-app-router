@@ -1,17 +1,17 @@
-export * from './products/product-grid/ProductGrid'
-export * from './products/product-grid/ProductGridItem'
+export { default as ProductGrid } from './products/product-grid/ProductGrid'
+export { default as ProductGridItem } from './products/product-grid/ProductGridItem'
 
-export * from './ui/top-menu/TopMenu'
-export * from './ui/not-found/PageNotFound'
-export * from './ui/title/Title'
+export { default as Sidebar } from './ui/sidebar/Sidebar'
 
-export * from './ui/sidebar/Sidebar'
+export { default as TopMenu } from './ui/top-menu/TopMenu'
+export { default as PageNotFound } from './ui/not-found/PageNotFound'
+export { default as Title } from './ui/title/Title'
 
-export * from './product/size-selector/SizeSelector'
-export * from './product/quantity-selector/QuantitySelector'
-export * from './product/slideshow/ProductSlideshow'
-export * from './product/slideshow/ProductMobileSlideshow'
+export { default as SizeSelector } from './product/size-selector/SizeSelector'
+export { default as QuantitySelector } from './product/quantity-selector/QuantitySelector'
+export { default as ProductSlideshow } from './product/slideshow/ProductSlideshow'
+export { default as ProductMobileSlideshow } from './product/slideshow/ProductMobileSlideshow'
 
-export * from './ui/footer/Footer'
+export { default as Footer } from './ui/footer/Footer'
 
-export * from './ui/pagination/pagination'
+export { default as Pagination } from './ui/pagination/pagination'

@@ -6,7 +6,7 @@ interface Props {
   message?: string
 }
 
-export function PageNotFound({ message = 'Whoops! Lo sentimos mucho.' }: Props) {
+export default function PageNotFound({ message = 'Whoops! Lo sentimos mucho.' }: Props) {
   return (
     <div className='flex flex-col-reverse md:flex-row h-[800px] mt-20 w-full justify-center items-center align-middle'>
       <div className='text-center px-5 mx-5'>

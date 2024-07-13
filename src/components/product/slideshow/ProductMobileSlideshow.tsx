@@ -18,7 +18,7 @@ interface Props {
   className?: string
 }
 
-export function ProductMobileSlideshow({ images, title, className }: Props) {
+export default function ProductMobileSlideshow({ images, title, className }: Props) {
   return (
     <div className={className}>
       <Swiper
