@@ -1,12 +1,17 @@
+export const revalidate = 604800 // 7 dias
+
+import { Metadata, ResolvingMetadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getProductBySlug } from '@/actions'
+import { titleFont } from '@/config/fonts'
+
 import {
   SizeSelector,
   QuantitySelector,
   ProductSlideshow,
-  ProductMobileSlideshow
+  ProductMobileSlideshow,
+  StockLabel
 } from '@/components'
-import { titleFont } from '@/config/fonts'
-import { initialData } from '@/seed/seed'
-import { notFound } from 'next/navigation'
 
 interface Props {
   params: {
@@ -14,10 +19,33 @@ interface Props {
   }
 }
 
-export default function ProductPage({ params }: Props) {
-  const { slug } = params
-  const product = initialData.products.find((product) => product.slug === slug)
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug
 
+  // fetch data
+  const product = await getProductBySlug({ slug })
+
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: product?.title ?? '',
+    description: product?.description ?? '',
+    openGraph: {
+      title: product?.title ?? '',
+      description: product?.description ?? '',
+      images: [`/products/${product?.images[1]}`]
+    }
+  }
+}
+
+export default async function ProductPage({ params }: Props) {
+  const { slug } = params
+
+  const product = await getProductBySlug({ slug })
   if (!product) return notFound()
 
   return (
@@ -41,10 +69,13 @@ export default function ProductPage({ params }: Props) {
 
       {/* Details */}
       <div className='col-span-3 px-3 '>
-        <h1 className={`${titleFont.className} antialiased font-bold text-4xl mb-7`}>
+        <h1 className={`${titleFont.className} antialiased font-bold text-4xl mb-5`}>
           {product.title}
         </h1>
-        <p className='text-lg mb-5'>${product.price}</p>
+
+        <p className='font-bold text-4xl mb-5'>${product.price}</p>
+
+        <StockLabel slug={product.slug} />
 
         <SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
 

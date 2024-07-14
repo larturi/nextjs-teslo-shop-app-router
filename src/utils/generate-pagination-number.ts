@@ -1,4 +1,4 @@
-export const generatePaginationNumbers = (currentPage: number, totalPages: number) => {
+export default function generatePaginationNumbers(currentPage: number, totalPages: number) {
   // Si el numero de paginas es 7 o menos
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, i) => i + 1)

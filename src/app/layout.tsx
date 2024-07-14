@@ -4,7 +4,10 @@ import { inter } from '@/config/fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Teslo Shop App',
+  title: {
+    template: '%s - Teslo Shop App',
+    default: 'Teslo Shop App'
+  },
   description: 'Teslo Shop Ecommerce App with Next.js 14 with app router'
 }
 

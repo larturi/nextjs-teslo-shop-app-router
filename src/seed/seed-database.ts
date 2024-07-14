@@ -30,6 +30,7 @@ async function main() {
     const dbProduct = await prisma.product.create({
       data: {
         ...rest,
+        slug: product.slug.replace(/_/g, '-'),
         categoryId: categoriesMap[type]
       }
     })
