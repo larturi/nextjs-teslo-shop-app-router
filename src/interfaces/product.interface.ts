@@ -8,8 +8,17 @@ export interface Product {
   slug: string
   tags: string[]
   title: string
-  // type: ValidType
   gender: Categories
+}
+
+export interface CartProduct {
+  id: string
+  slug: string
+  title: string
+  price: number
+  quantity: number
+  size: Size
+  image: string
 }
 
 export type Categories = 'men' | 'women' | 'kid' | 'unisex'

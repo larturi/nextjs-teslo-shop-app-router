@@ -4,14 +4,9 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getProductBySlug } from '@/actions'
 import { titleFont } from '@/config/fonts'
+import AddToCart from './ui/AddToCart'
 
-import {
-  SizeSelector,
-  QuantitySelector,
-  ProductSlideshow,
-  ProductMobileSlideshow,
-  StockLabel
-} from '@/components'
+import { ProductSlideshow, ProductMobileSlideshow, StockLabel } from '@/components'
 
 interface Props {
   params: {
@@ -77,12 +72,7 @@ export default async function ProductPage({ params }: Props) {
 
         <StockLabel slug={product.slug} />
 
-        <SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
-
-        <QuantitySelector quantity={1} />
-
-        {/* Add to cart */}
-        <button className='btn-primary my-5'>Add to Cart</button>
+        <AddToCart product={product} />
 
         {/* Description */}
         <h3 className='font-bold text-sm'>Description</h3>

@@ -33,7 +33,7 @@ export default function StockLabel({ slug }: Props) {
           &nbsp;
         </h1>
       ) : (
-        <h1 className={`${titleFont.className} antialiased font-bold text-xl mb-3 text-gray-600`}>
+        <h1 className={`${titleFont.className} antialiased font-bold text-xl mb-1 text-gray-600`}>
           Stock: {isLoading ? '...' : stock}
         </h1>
       )}
