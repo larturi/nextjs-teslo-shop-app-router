@@ -2,14 +2,19 @@
 
 import { QuantitySelector } from '@/components'
 import { useCartStore } from '@/store'
+import { Sleep } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function ProductsInCart() {
   const productsInCart = useCartStore((state) => state.cart)
   const updateProductQuantity = useCartStore((state) => state.updateProductQuantity)
   const removeProduct = useCartStore((state) => state.removeProduct)
+  const getTotalItems = useCartStore((state) => state.getTotalItems())
+
+  Sleep(1)
 
   const [loaded, setLoaded] = useState(false)
 
@@ -19,6 +24,10 @@ export default function ProductsInCart() {
 
   if (!loaded) {
     return <p>Loading...</p>
+  }
+
+  if (loaded && getTotalItems === 0) {
+    redirect('/empty')
   }
 
   return (
