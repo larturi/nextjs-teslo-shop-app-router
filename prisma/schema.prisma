@@ -4,6 +4,8 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// To update the schema, run `npx prisma migrate dev --name <name-of-migration>`
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -28,6 +30,11 @@ enum Gender {
   women
   kid
   unisex
+}
+
+enum Role {
+  admin
+  user
 }
 
 model Category {
@@ -61,4 +68,14 @@ model ProductImage {
 
   Product   Product? @relation(fields: [productId], references: [id])
   productId String?
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role      @default(user)
+  image         String?
 }
