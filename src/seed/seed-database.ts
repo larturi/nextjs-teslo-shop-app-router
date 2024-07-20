@@ -3,12 +3,13 @@ import prisma from '../lib/prisma'
 import { initialData } from './seed'
 
 async function main() {
-  const { categories, products } = initialData
+  const { categories, products, users } = initialData
 
   console.log('Deleting old database...')
   await prisma.productImage.deleteMany()
   await prisma.product.deleteMany()
   await prisma.category.deleteMany()
+  await prisma.user.deleteMany()
 
   console.log('Inserting Categories...')
   const categoriesData = categories.map((category) => {
@@ -16,6 +17,9 @@ async function main() {
   })
 
   await prisma.category.createMany({ data: categoriesData })
+
+  console.log('Inserting Users...')
+  await prisma.user.createMany({ data: users })
 
   console.log('Inserting Products...')
   const categoriesDb = await prisma.category.findMany()
