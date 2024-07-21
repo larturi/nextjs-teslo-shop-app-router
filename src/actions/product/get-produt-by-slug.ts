@@ -28,7 +28,7 @@ export default async function getProductBySlug({ slug }: Props) {
       images: product.productImage.map((image) => image.url)
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     throw new Error('Error al carga el producto con slug ' + slug)
   }
 }

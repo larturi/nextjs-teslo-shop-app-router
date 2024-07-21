@@ -52,7 +52,7 @@ export default async function getPaginatedProductsWithImages({
       }))
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     throw new Error('Error al cargar los productos')
   }
 }

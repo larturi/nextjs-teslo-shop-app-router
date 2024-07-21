@@ -6,15 +6,20 @@ import Link from 'next/link'
 import { IoInformationCircleOutline } from 'react-icons/io5'
 import clsx from 'clsx'
 import { authenticate } from '@/actions'
+import { useSearchParams } from 'next/navigation'
 
 export default function LoginForm() {
   const [state, dispatch] = useFormState(authenticate, undefined)
 
+  // Get ?redirectTo from URL
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams?.get('redirectTo') ?? undefined
+
   useEffect(() => {
     if (state === 'Success') {
-      window.location.replace('/')
+      window.location.replace(redirectTo ?? '/')
     }
-  }, [state])
+  }, [redirectTo, state])
 
   return (
     <form action={dispatch} className='flex flex-col'>

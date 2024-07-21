@@ -12,8 +12,9 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      console.log({ auth })
-      // const isLoggedIn = !!auth?.user;
+      console.log({ pepe: auth })
+
+      const isLoggedIn = !!auth?.user
 
       // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
       // if (isOnDashboard) {
@@ -26,7 +27,8 @@ export const authConfig: NextAuthConfig = {
     },
 
     jwt({ token, user }) {
-      console.log({ token, user })
+      // console.log({ token, user })
+
       if (user) {
         token.data = user
       }

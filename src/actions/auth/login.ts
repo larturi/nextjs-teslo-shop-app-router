@@ -16,8 +16,23 @@ export async function authenticate(prevState: string | undefined, formData: Form
     if ((error as any).type === 'CredentialsSignin') {
       return 'CredentialsSignin'
     }
-    console.log(error)
+    console.error(error)
 
     return 'UnknownErrorOnLogin'
+  }
+}
+
+// Otra alternativa
+export const login = async (email: string, password: string) => {
+  try {
+    await signIn('credentials', { email, password })
+
+    return { ok: true }
+  } catch (error) {
+    console.error(error)
+    return {
+      ok: false,
+      message: 'No se pudo iniciar sesión'
+    }
   }
 }
