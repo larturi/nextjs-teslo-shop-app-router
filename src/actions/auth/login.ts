@@ -3,8 +3,8 @@
 import { signIn } from '@/auth.config'
 
 export async function authenticate(prevState: string | undefined, formData: FormData) {
-  console.log(111)
-  console.log(Object.fromEntries(formData))
+  // console.log(Object.fromEntries(formData))
+
   try {
     await signIn('credentials', {
       ...Object.fromEntries(formData),
@@ -13,8 +13,11 @@ export async function authenticate(prevState: string | undefined, formData: Form
 
     return 'Success'
   } catch (error) {
+    if ((error as any).type === 'CredentialsSignin') {
+      return 'CredentialsSignin'
+    }
     console.log(error)
 
-    return 'CredentialsSignin'
+    return 'UnknownErrorOnLogin'
   }
 }

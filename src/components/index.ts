@@ -16,3 +16,5 @@ export { default as StockLabel } from './product/stock-label/StockLabel'
 export { default as Footer } from './ui/footer/Footer'
 
 export { default as Pagination } from './ui/pagination/pagination'
+
+export { Provider } from './providers/Provider'
