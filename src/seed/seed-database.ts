@@ -1,15 +1,15 @@
-import { url } from 'inspector'
 import prisma from '../lib/prisma'
 import { initialData } from './seed'
 
 async function main() {
-  const { categories, products, users } = initialData
+  const { categories, products, users, countries } = initialData
 
   console.log('Deleting old database...')
   await prisma.productImage.deleteMany()
   await prisma.product.deleteMany()
   await prisma.category.deleteMany()
   await prisma.user.deleteMany()
+  await prisma.country.deleteMany()
 
   console.log('Inserting Categories...')
   const categoriesData = categories.map((category) => {
@@ -49,6 +49,10 @@ async function main() {
       data: imagesData
     })
   })
+
+  // Insert Countries
+  console.log('Inserting Countries...')
+  await prisma.country.createMany({ data: countries })
 
   console.clear()
   console.log('Seed database executed!')
