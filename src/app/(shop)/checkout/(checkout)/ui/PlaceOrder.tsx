@@ -30,6 +30,8 @@ export default function PlaceOrder() {
       size: product.size
     }))
 
+    console.log({ productsToOrder, address })
+
     setIsPlacingOrder(false)
   }
 
