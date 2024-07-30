@@ -7,4 +7,5 @@ export interface Address {
   city: string
   country: string
   phone: string
+  userId?: string
 }

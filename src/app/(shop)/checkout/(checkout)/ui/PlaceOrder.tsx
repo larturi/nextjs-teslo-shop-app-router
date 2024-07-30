@@ -1,5 +1,6 @@
 'use client'
 
+import { placeOrder } from '@/actions'
 import { useAddressStore, useCartStore } from '@/store'
 import { currencyFormater } from '@/utils'
 import clsx from 'clsx'
@@ -7,6 +8,8 @@ import { useEffect, useState } from 'react'
 
 export default function PlaceOrder() {
   const [loading, setLoading] = useState(false)
+  const [showError, setShowError] = useState(false)
+  const [showErrorMsg, setShowErrorMsg] = useState('')
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
 
   const address = useAddressStore((state) => state.address)
@@ -30,7 +33,13 @@ export default function PlaceOrder() {
       size: product.size
     }))
 
-    console.log({ productsToOrder, address })
+    const resp = await placeOrder(productsToOrder, address)
+    console.log(resp)
+
+    if (!resp.ok) {
+      setShowError(true)
+      setShowErrorMsg(resp.message!.toString())
+    }
 
     setIsPlacingOrder(false)
   }
@@ -83,12 +92,14 @@ export default function PlaceOrder() {
           </span>
         </p>
 
-        {/* <p className='text-red-500'>Error on save the order</p> */}
+        {showError && (
+          <p className='bg-red-500 text-white text-center rounded-md py-2 mb-4'>{showErrorMsg}</p>
+        )}
 
         <button
           onClick={onPlaceOrder}
           className={clsx(
-            'flex justify-center',
+            'flex justify-center w-full',
             { 'btn-disabled': isPlacingOrder },
             { 'btn-primary': !isPlacingOrder }
           )}
