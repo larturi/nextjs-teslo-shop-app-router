@@ -1,4 +1,3 @@
-import { titleFont } from '@/config/fonts'
 import Link from 'next/link'
 import { IoCartOutline } from 'react-icons/io5'
 

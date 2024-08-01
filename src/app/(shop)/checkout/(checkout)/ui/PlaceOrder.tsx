@@ -1,12 +1,15 @@
 'use client'
 
-import { placeOrder } from '@/actions'
-import { useAddressStore, useCartStore } from '@/store'
-import { currencyFormater } from '@/utils'
-import clsx from 'clsx'
 import { useEffect, useState } from 'react'
+import { placeOrder } from '@/actions'
+import { useRouter } from 'next/navigation'
+import { useAddressStore, useCartStore } from '@/store'
+import { currencyFormater, Sleep } from '@/utils'
+import clsx from 'clsx'
 
 export default function PlaceOrder() {
+  const router = useRouter()
+
   const [loading, setLoading] = useState(false)
   const [showError, setShowError] = useState(false)
   const [showErrorMsg, setShowErrorMsg] = useState('')
@@ -19,12 +22,15 @@ export default function PlaceOrder() {
   )
 
   const cart = useCartStore((state) => state.cart)
+  const clearCart = useCartStore((state) => state.clearCart)
 
   useEffect(() => {
     setLoading(true)
   }, [])
 
   const onPlaceOrder = async () => {
+    if (cart.length === 0) return
+
     setIsPlacingOrder(true)
 
     const productsToOrder = cart.map((product) => ({
@@ -34,14 +40,15 @@ export default function PlaceOrder() {
     }))
 
     const resp = await placeOrder(productsToOrder, address)
-    console.log(resp)
-
     if (!resp.ok) {
-      setShowError(true)
-      setShowErrorMsg(resp.message!.toString())
+      setIsPlacingOrder(false)
+      setShowError(resp.message)
+      return
+    } else {
     }
-
-    setIsPlacingOrder(false)
+    router.replace('/orders/' + resp.order?.id)
+    await Sleep(2)
+    clearCart()
   }
 
   if (!loading) return <p>Loading...</p>
