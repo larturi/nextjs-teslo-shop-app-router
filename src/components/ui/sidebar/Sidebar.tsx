@@ -75,7 +75,8 @@ export default function Sidebar() {
         </Link>
 
         <Link
-          href='/'
+          href='/orders'
+          onClick={() => closeMenu()}
           className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'
         >
           <IoTicketOutline size={30} />
@@ -122,7 +123,8 @@ export default function Sidebar() {
             </Link>
 
             <Link
-              href='/'
+              href='/orders'
+              onClick={() => closeMenu()}
               className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'
             >
               <IoTicketOutline size={30} />
