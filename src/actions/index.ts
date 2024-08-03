@@ -13,3 +13,4 @@ export { deleteUserAddress } from './address/delete-user-address'
 export { getUserAddress } from './address/get-user-address'
 
 export { placeOrder } from './order/place-order'
+export { getOrderById } from './order/get-order-by-id'
