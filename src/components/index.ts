@@ -17,4 +17,6 @@ export { default as Footer } from './ui/footer/Footer'
 
 export { default as Pagination } from './ui/pagination/pagination'
 
-export { Provider } from './providers/Provider'
+export { Providers } from './providers/Providers'
+
+export { PayPalButton } from './paypal/PayPalButton'

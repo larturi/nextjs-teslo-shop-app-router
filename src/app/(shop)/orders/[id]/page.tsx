@@ -1,6 +1,5 @@
 import { getOrderById } from '@/actions'
-import { Title } from '@/components'
-import { initialData } from '@/seed/seed'
+import { PayPalButton, Title } from '@/components'
 import { currencyFormater } from '@/utils'
 import { capitalizeName } from '@/utils/capitalize-string'
 import clsx from 'clsx'
@@ -109,22 +108,7 @@ export default async function OrderPage({ params }: Props) {
             </div>
 
             <div className='mt-5 mb-2 w-full'>
-              <div
-                className={clsx(
-                  'flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5',
-                  {
-                    'bg-red-500': !order!.isPaid,
-                    'bg-green-700': order!.isPaid
-                  }
-                )}
-              >
-                <IoCartOutline size={30} />
-                <span className='ml-2'>
-                  {order!.isPaid
-                    ? `Paid on ${new Date(order!.paidAt!).toLocaleDateString()}`
-                    : 'Order Pending Payment'}
-                </span>
-              </div>
+              <PayPalButton orderId={order!.id} amount={order!.total} />
             </div>
           </div>
         </div>
