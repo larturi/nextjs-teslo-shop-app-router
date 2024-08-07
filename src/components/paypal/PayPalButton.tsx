@@ -37,7 +37,7 @@ export function PayPalButton({ orderId, amount }: Props) {
       intent: 'CAPTURE',
       purchase_units: [
         {
-          // invoice_id: orderId,
+          invoice_id: orderId,
           amount: {
             currency_code: 'USD',
             value: `${roundedAmount}`

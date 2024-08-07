@@ -20,3 +20,5 @@ export { default as Pagination } from './ui/pagination/pagination'
 export { Providers } from './providers/Providers'
 
 export { PayPalButton } from './paypal/PayPalButton'
+
+export { OrderStatus } from './orders/OrderStatus'

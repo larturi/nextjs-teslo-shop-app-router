@@ -1,15 +1,52 @@
 'use server'
 
+import { PayPalOrderStatusResponse } from '@/interfaces'
+import prisma from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
+
 export const paypalCheckPayment = async (paypalTransactionId: string) => {
   const authToken = await getPaypalBearerToken()
-  console.log({ authToken })
 
   if (!authToken) {
     return { ok: false, message: 'Error getting paypal bearer token' }
   }
 
-  return {
-    authToken
+  const resp = await verifyPayPalPayment(paypalTransactionId, authToken)
+
+  if (!resp) {
+    return { ok: false, message: 'Error on verify paypal payment' }
+  }
+
+  const { status, purchase_units } = resp
+  const { invoice_id: orderId } = purchase_units[0]
+
+  if (status !== 'COMPLETED') {
+    return {
+      ok: false,
+      message: 'Aún no se ha pagado en PayPal'
+    }
+  }
+
+  try {
+    await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        isPaid: true,
+        paidAt: new Date()
+      }
+    })
+
+    revalidatePath(`/orders/${orderId}`)
+
+    return {
+      ok: true
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      ok: false,
+      message: '500 - El pago no se pudo realizar'
+    }
   }
 }
 
@@ -36,8 +73,38 @@ const getPaypalBearerToken = async (): Promise<string | null> => {
   }
 
   try {
-    const response = await fetch(`${PAYPAL_OAUTH_URL}`, requestOptions).then((r) => r.json())
-    return response.access_token
+    const result = await fetch(`${PAYPAL_OAUTH_URL}`, {
+      ...requestOptions,
+      cache: 'no-store'
+    }).then((r) => r.json())
+    return result.access_token
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+const verifyPayPalPayment = async (
+  paypalTransactionId: string,
+  bearerToken: string
+): Promise<PayPalOrderStatusResponse | null> => {
+  const paypalOrderUrl = `${process.env.PAYPAL_ORDERS_URL}/${paypalTransactionId}`
+
+  const myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders
+  }
+
+  try {
+    const resp = await fetch(paypalOrderUrl, {
+      ...requestOptions,
+      cache: 'no-store'
+    }).then((r) => r.json())
+    console.log({ resp })
+    return resp
   } catch (error) {
     console.log(error)
     return null
