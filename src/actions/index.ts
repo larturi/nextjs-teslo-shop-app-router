@@ -15,6 +15,7 @@ export { getUserAddress } from './address/get-user-address'
 export { placeOrder } from './order/place-order'
 export { getOrderById } from './order/get-order-by-id'
 export { getOrdersBySessionUser } from './order/get-orders-by-user'
+export { getPaginatedOrders } from './order/get-paginated-orders'
 
 export { setTransactionId } from './payments/set-transaction-id'
 export { paypalCheckPayment } from './payments/paypal-check-payment'

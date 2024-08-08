@@ -123,7 +123,7 @@ export default function Sidebar() {
             </Link>
 
             <Link
-              href='/orders'
+              href='/admin/orders'
               onClick={() => closeMenu()}
               className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'
             >
