@@ -1,5 +1,6 @@
 'use client'
 
+import { changeRole } from '@/actions'
 import { User } from '@/interfaces'
 import { capitalizeName } from '@/utils/capitalize-string'
 
@@ -38,7 +39,7 @@ export const UsersTable = ({ users }: Props) => {
             <td className='flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
               <select
                 value={user.role}
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => changeRole(user.id, e.target.value)}
                 className='text-sm text-gray-900 p-3 w-[150px]'
               >
                 <option value='admin'>Admin</option>
