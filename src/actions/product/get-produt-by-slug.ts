@@ -12,7 +12,8 @@ export default async function getProductBySlug({ slug }: Props) {
       include: {
         productImage: {
           select: {
-            url: true
+            url: true,
+            id: true
           }
         }
       },
