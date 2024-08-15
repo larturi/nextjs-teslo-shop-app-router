@@ -8,14 +8,9 @@ interface Props {
 
 export default async function getProductBySlug({ slug }: Props) {
   try {
-    const product = await prisma.product.findUnique({
+    const product = await prisma.product.findFirst({
       include: {
-        productImage: {
-          select: {
-            url: true,
-            id: true
-          }
-        }
+        productImage: true
       },
       where: {
         slug: slug

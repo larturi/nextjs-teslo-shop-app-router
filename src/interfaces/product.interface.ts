@@ -24,7 +24,7 @@ export interface CartProduct {
 export interface ProductImage {
   id: number
   url: string
-  productId: string
+  productId: string | null
 }
 
 export type Categories = 'men' | 'women' | 'kid' | 'unisex'

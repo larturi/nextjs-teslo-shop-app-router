@@ -1,14 +1,10 @@
 // https://tailwindcomponents.com/component/hoverable-table
 
-import { Pagination, Title } from '@/components'
+import { Pagination, ProductImage, Title } from '@/components'
 
 import Link from 'next/link'
-import { IoCardOutline } from 'react-icons/io5'
-import { getPaginatedOrders, getPaginatedProductsWithImages } from '@/actions'
-import { redirect } from 'next/navigation'
-import { capitalizeName } from '@/utils/capitalize-string'
-import clsx from 'clsx'
-import Image from 'next/image'
+import { getPaginatedProductsWithImages } from '@/actions'
+
 import { currencyFormater } from '@/utils'
 
 interface Props {
@@ -64,8 +60,8 @@ export default async function ProductsPage({ searchParams }: Props) {
               >
                 <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                   <Link href={`/product/${product.slug}`}>
-                    <Image
-                      src={`/products/${product.productImage[0].url}`}
+                    <ProductImage
+                      src={product.productImage[0]?.url}
                       alt={product.title}
                       width={80}
                       height={80}

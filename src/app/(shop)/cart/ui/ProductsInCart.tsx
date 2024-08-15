@@ -1,6 +1,6 @@
 'use client'
 
-import { QuantitySelector } from '@/components'
+import { ProductImage, QuantitySelector } from '@/components'
 import { useCartStore } from '@/store'
 import { Sleep } from '@/utils'
 import Image from 'next/image'
@@ -34,8 +34,8 @@ export default function ProductsInCart() {
     <>
       {productsInCart.map((product) => (
         <div key={`${product.slug}-${product.size}`} className='flex mb-5'>
-          <Image
-            src={`/products/${product.image}`}
+          <ProductImage
+            src={product.image}
             width={100}
             height={30}
             alt={product.title}
