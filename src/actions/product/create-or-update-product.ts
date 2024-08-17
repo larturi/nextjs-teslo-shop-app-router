@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma'
 import { Gender, Product, Size } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 const productSchema = z.object({
@@ -39,43 +40,56 @@ export default async function createOrUpdateProduct(formData: FormData) {
 
   const { id, ...rest } = product
 
-  const prismaTransaction = await prisma.$transaction(async (tx) => {
-    let product: Product
-    const tagsArray = rest.tags.split(',').map((tag) => tag.trim().toLowerCase())
+  try {
+    const prismaTransaction = await prisma.$transaction(async (tx) => {
+      let product: Product
+      const tagsArray = rest.tags.split(',').map((tag) => tag.trim().toLowerCase())
 
-    if (id) {
-      // Update
-      product = await tx.product.update({
-        where: { id },
-        data: {
-          ...rest,
-          sizes: {
-            set: rest.sizes as Size[]
-          },
-          tags: {
-            set: tagsArray
+      if (id) {
+        // Update
+        product = await tx.product.update({
+          where: { id },
+          data: {
+            ...rest,
+            sizes: {
+              set: rest.sizes as Size[]
+            },
+            tags: {
+              set: tagsArray
+            }
           }
-        }
-      })
-    } else {
-      // Create
-      product = await tx.product.create({
-        data: {
-          ...rest,
-          sizes: {
-            set: rest.sizes as Size[]
-          },
-          tags: {
-            set: tagsArray
+        })
+      } else {
+        // Create
+        product = await tx.product.create({
+          data: {
+            ...rest,
+            sizes: {
+              set: rest.sizes as Size[]
+            },
+            tags: {
+              set: tagsArray
+            }
           }
-        }
-      })
+        })
+      }
+
+      return { product }
+    })
+
+    // Revalidate Paths
+    revalidatePath('/admin/products')
+    revalidatePath(`/admin/product/${product.slug}`)
+    revalidatePath(`/product/${product.slug}`)
+
+    return {
+      ok: true,
+      product: prismaTransaction.product
     }
-
-    return { product }
-  })
-
-  return {
-    ok: true
+  } catch (error) {
+    return {
+      ok: false,
+      message: 'No se pudo actualizar el producto en la BD'
+    }
   }
 }
