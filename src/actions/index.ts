@@ -2,6 +2,7 @@ export { default as getPaginatedProductsWithImages } from './products/products-p
 export { default as getProductBySlug } from './product/get-produt-by-slug'
 export { default as getStockBySlug } from './product/get-stock-by-slug'
 export { default as createOrUpdateProduct } from './product/create-or-update-product'
+export { default as deleteProductImage } from './product/delete-product-image'
 
 export { authenticate, login } from './auth/login'
 export { logout } from './auth/logout'
