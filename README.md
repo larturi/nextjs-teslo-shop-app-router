@@ -19,3 +19,7 @@
 6. Run Prisma migrations: ```npx prisma migrate dev```
 7. Run the seed to populate the database: ```npm run seed```
 8. Start the server: ```npm run dev```
+
+## Production
+
+1. Build the application: ```npm run build```
