@@ -23,3 +23,6 @@
 ## Production
 
 1. Build the application: ```npm run build```
+2. Create the Postgres DB in Vercel
+3. Change the env DATABASE_URL localy and run ```npx prisma migrate deploy```
+4. Run the seed to populate the database: ```npm run seed```

@@ -5,7 +5,7 @@ async function main() {
   const { categories, products, users, countries } = initialData
 
   console.log('Deleting old database...')
-  await prisma.orderAddress.deleteMany()
+  // await prisma.orderAddress.deleteMany()
   await prisma.orderItem.deleteMany()
   await prisma.order.deleteMany()
 
