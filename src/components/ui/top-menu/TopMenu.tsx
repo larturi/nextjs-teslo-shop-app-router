@@ -43,9 +43,9 @@ export default function TopMenu() {
 
       {/* Search, Cart, Menu */}
       <div className='flex items-center'>
-        <Link href='/search' className='mx-2'>
+        {/* <Link href='/search' className='mx-2'>
           <IoSearchOutline className='w-5 h-5' />
-        </Link>
+        </Link> */}
 
         <Link href={totalItemsInCart === 0 && loaded ? '/empty' : '/cart'} className='mx-2'>
           <div className='relative'>
